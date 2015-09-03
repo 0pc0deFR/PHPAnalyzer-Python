@@ -20,4 +20,5 @@ This instance provides access to several functions:
 	- functions(): return all functions found in file, in list  
 	- params_functions(Function): return the parameters of Function, in dictionary  
 	- defines(): return all defines found in file, in dictionary  
-	- compile(): execute all functions and return three dictionary with all informations returned by all functions  
+	- variables(): return all variables found in file, in dictionary  
+	- compile(): execute all functions and return four dictionary with all informations returned by all functions  

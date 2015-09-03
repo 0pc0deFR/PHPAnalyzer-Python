@@ -103,7 +103,7 @@ class Analyze:
 
 	def defines(self):
 		tab = {}
-		regex = re.compile(r"""\bdefine\(\s*('|")(.*)\1\s*,\s*('|")(.*)\3\)\s*;""")
+		regex = re.compile(r"""\bdefine\(\s*('|")(.*)\1\s*,\s*('|")(.*)\3\)\s*;""",re.IGNORECASE|re.DOTALL)
 		m = regex.findall(self._content_file)
 		for n in m:
 			tab[n[1]] = n[3]
@@ -111,7 +111,11 @@ class Analyze:
 
 	def variables(self):
 		tab = {}
-
+		regex = re.compile(r'\$(?P<variable>\w+)\s*=\s*"?\'?(?P<value>[^"\';]+)"?\'?;',re.IGNORECASE|re.DOTALL)
+		m = regex.findall(self._content_file)
+		for n in m:
+			tab[n[0]] = n[1]
+		return tab
 
 	def compile(self):
 		get_classes = self.classes()
@@ -135,4 +139,5 @@ class Analyze:
 					tab2["function"+str(i)][cle] = valeur
 			i += 1
 		tab3 = self.defines()
-		return tab, tab2, tab3
+		tab4 = self.variables()
+		return tab, tab2, tab3, tab4
